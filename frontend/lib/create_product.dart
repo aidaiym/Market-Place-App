@@ -97,7 +97,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                   }
                 });
               },
-              child: Text('Create Product'),
+              child: const Text('Create Product'),
             )
           ],
         ),
