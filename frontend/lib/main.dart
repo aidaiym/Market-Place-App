@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'create_product.dart';
+import 'modules/product/view/product_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CreateProductPage(),
+      home: const ProductView(),
     );
   }
 }
