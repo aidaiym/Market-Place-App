@@ -1,20 +1,40 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 import '../../../constants/api/api_constants.dart';
 import '../../../models/product/product_model.dart';
 
 class ProductService {
+  const ProductService(this.client);
+
+  final http.Client client;
+
   static String productUrl = ApiConstants.baseUrl + ApiConstants.product;
 
-  static Future<List<ProductModel>> getAllProducts() async {
-    final response = await http.get(Uri.parse(productUrl));
-    if (response.statusCode == 200) {
-      final List<dynamic> jsonResponse = json.decode(response.body);
-      return jsonResponse.map((json) => ProductModel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load products');
+  Future<List<ProductModel>?> getAllProducts() async {
+    try {
+      final response = await http.get(Uri.parse(productUrl));
+      if (response.statusCode == 200) {
+        final body = jsonDecode(response.body) as List;
+        final products = body.map((e) => ProductModel.fromJson(e)).toList();
+        return products;
+      } else {
+        log('${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      log('$e');
+      client.close();
+      return null;
     }
+    // final response = await http.get(Uri.parse(productUrl));
+    // if (response.statusCode == 200) {
+    //   final List<dynamic> jsonResponse = json.decode(response.body);
+    //   return jsonResponse.map((json) => ProductModel.fromJson(json)).toList();
+    // } else {
+    //   throw Exception('Failed to load products');
+    // }
   }
 
   static Future<ProductModel> getProductById(int id) async {
