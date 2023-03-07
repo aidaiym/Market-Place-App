@@ -29,7 +29,7 @@ class _MainViewState extends State<MainView> {
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
 
-  final _controller = PageController();
+  final _controller = PageController(initialPage: 1);
 
   final _items = const [
     AddProductView(),

@@ -5,6 +5,6 @@ class SignInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('SignInView');
+    return const Text('SignInView');
   }
 }

@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
+
 import '../../../core/core.dart';
 import '../product.dart';
 
-class ProductView extends StatelessWidget {
-  const ProductView({super.key});
+class AddProductView extends StatelessWidget {
+  const AddProductView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProductCubit(ProductService(Client())),
-      child: const ProductViewBody(),
+      child: const AddProductViewBody(),
     );
   }
 }
 
-class ProductViewBody extends StatefulWidget {
-  const ProductViewBody({super.key});
+class AddProductViewBody extends StatefulWidget {
+  const AddProductViewBody({super.key});
 
   @override
-  State<ProductViewBody> createState() => _ProductViewBodyState();
+  State<AddProductViewBody> createState() => _AddProductViewBodyState();
 }
 
-class _ProductViewBodyState extends State<ProductViewBody> {
+class _AddProductViewBodyState extends State<AddProductViewBody> {
   @override
   void initState() {
     context.read<ProductCubit>().getPost();
@@ -45,7 +46,7 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                 child: Text('Error'),
               );
             case FetchStatus.success:
-              return ProductListWidget(state.products ?? []);
+              return AddProductWidget(state.products ?? []);
           }
         },
       ),

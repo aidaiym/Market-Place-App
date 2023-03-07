@@ -1,4 +1,4 @@
 class ApiConstants {
-  static String baseUrl = 'http://192.168.220.106:8000';
-  static String product = '/products';
+  static String baseUrl = 'http://192.168.206.113:8000';
+  static String productUrl = '$baseUrl/products';
 }

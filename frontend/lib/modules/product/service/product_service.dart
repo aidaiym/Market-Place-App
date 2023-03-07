@@ -10,11 +10,9 @@ class ProductService {
 
   final http.Client client;
 
-  static String productUrl = ApiConstants.baseUrl + ApiConstants.product;
-
   Future<List<ProductModel>?> getAllProducts() async {
     try {
-      final response = await http.get(Uri.parse(productUrl));
+      final response = await http.get(Uri.parse(ApiConstants.productUrl));
       if (response.statusCode == 200) {
         final body = jsonDecode(response.body) as List;
         final products = body.map((e) => ProductModel.fromJson(e)).toList();
@@ -28,7 +26,7 @@ class ProductService {
       client.close();
       return null;
     }
-    // final response = await http.get(Uri.parse(productUrl));
+    // final response = await http.get(Uri.parse(ApiConstants.productUrl));
     // if (response.statusCode == 200) {
     //   final List<dynamic> jsonResponse = json.decode(response.body);
     //   return jsonResponse.map((json) => ProductModel.fromJson(json)).toList();
@@ -38,7 +36,8 @@ class ProductService {
   }
 
   static Future<ProductModel> getProductById(int id) async {
-    final response = await http.get(Uri.parse('$productUrl/$id'));
+    final response =
+        await http.get(Uri.parse('${ApiConstants.productUrl}/$id'));
     if (response.statusCode == 200) {
       final dynamic jsonResponse = json.decode(response.body);
       return ProductModel.fromJson(jsonResponse);
@@ -49,7 +48,7 @@ class ProductService {
 
   static Future<ProductModel> createProduct(ProductModel product) async {
     final response = await http.post(
-      Uri.parse(productUrl),
+      Uri.parse(ApiConstants.productUrl),
       headers: <String, String>{'Content-Type': 'application/json'},
       body: jsonEncode(product.toJson()),
     );
@@ -62,7 +61,7 @@ class ProductService {
   }
 
   static Future<void> deleteProduct(int id) async {
-    final url = Uri.parse('$productUrl/$id');
+    final url = Uri.parse('${ApiConstants.productUrl}/$id');
     final http.Response response = await http.delete(
       url,
       headers: <String, String>{
@@ -78,7 +77,7 @@ class ProductService {
 
   // Future<http.Response> updateProduct(
   //     int id, String name, String description, String price) {
-  //   final url = Uri.parse('$productUrl/$id');
+  //   final url = Uri.parse('$ApiConstants.productUrl/$id');
   //   return http.put(
   //     url,
   //     headers: <String, String>{

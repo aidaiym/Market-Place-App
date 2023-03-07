@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/models/models.dart';
+import '../../../export_files.dart';
 
 class ProductListWidget extends StatelessWidget {
   const ProductListWidget(this.products, {super.key});
@@ -18,7 +18,7 @@ class ProductListWidget extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff6200EE),
+              backgroundColor: AppColors.main,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
             ),
