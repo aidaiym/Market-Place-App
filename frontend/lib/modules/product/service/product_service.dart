@@ -52,6 +52,8 @@ class ProductService {
       headers: <String, String>{'Content-Type': 'application/json'},
       body: jsonEncode(product.toJson()),
     );
+    print(jsonEncode(product.toJson()));
+    print(response.statusCode);
     if (response.statusCode == 201) {
       final dynamic jsonResponse = json.decode(response.body);
       return ProductModel.fromJson(jsonResponse);
@@ -68,26 +70,21 @@ class ProductService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    if (response.statusCode == 204) {
-      return;
-    } else {
-      throw Exception('Failed to delete album.');
-    }
   }
 
-  // Future<http.Response> updateProduct(
-  //     int id, String name, String description, String price) {
-  //   final url = Uri.parse('$ApiConstants.productUrl/$id');
-  //   return http.put(
-  //     url,
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //     },
-  //     body: jsonEncode(<String, String>{
-  //       'name': name,
-  //       'description': description,
-  //       'price': price,
-  //     }),
-  //   );
-  // }
+  Future<http.Response> updateProduct(
+      int id, String name, String description, String price) {
+    final url = Uri.parse('$ApiConstants.productUrl/$id');
+    return http.put(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'name': name,
+        'description': description,
+        'price': price,
+      }),
+    );
+  }
 }
